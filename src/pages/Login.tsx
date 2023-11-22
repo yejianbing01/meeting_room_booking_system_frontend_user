@@ -1,0 +1,10 @@
+import { DatePicker } from 'antd'
+import React from 'react'
+
+type Props = {}
+
+export default function Login({}: Props) {
+  return (
+      <div><DatePicker></DatePicker></div>
+  )
+}
