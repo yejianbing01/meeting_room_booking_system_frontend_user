@@ -1,0 +1,33 @@
+.login-card {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &-title {
+    margin-bottom: 60px;
+  }
+
+  &-form {
+    width: 60%;
+  }
+
+  &-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-submit {
+    width: 100%;
+  }
+
+  &-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

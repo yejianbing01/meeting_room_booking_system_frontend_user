@@ -15,7 +15,7 @@ const routes: RouteObject[] = [
   },
   {
     path: 'login',
-    element: <Login/>
+    element: <Login />
   },
   {
     path: 'register',
@@ -30,7 +30,7 @@ const routes: RouteObject[] = [
 const router = createBrowserRouter(routes)
 
 
-const root = ReactDOM.createRoot( document.getElementById('root') as HTMLElement );
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
