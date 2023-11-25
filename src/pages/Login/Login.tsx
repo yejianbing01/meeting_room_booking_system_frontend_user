@@ -1,7 +1,7 @@
 import { Button, Form, Input, message } from 'antd'
 import './login.scss';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../lib/interface';
+import { login } from '../../lib/interface';
 
 type FieldType = {
   username?: string;
@@ -11,15 +11,17 @@ type FieldType = {
 export default function Login() {
   const nav = useNavigate();
 
-  const onRegister = () => nav('/register')
-  const onUpdatePassword = () => nav('/update_password')
+  const onRegister = () => nav('/register');
+  const onUpdatePassword = () => nav('/update_password');
   const onFinish = async (loginUser: LoginUserDto) => {
-    const res = await login(loginUser);
-    nav('/', { replace: true })
-    message.success('登录成功');
-    localStorage.setItem('access_token', res.accessToken);
-    localStorage.setItem('refresh_token', res.refreshToken);
-    localStorage.setItem('user_info', JSON.stringify(res.userInfo));
+    try {
+      const res = await login(loginUser);
+      nav('/', { replace: true });
+      message.success('登录成功');
+      localStorage.setItem('access_token', res.accessToken);
+      localStorage.setItem('refresh_token', res.refreshToken);
+      localStorage.setItem('user_info', JSON.stringify(res.userInfo));
+    } catch (error) { }
   }
 
   return (

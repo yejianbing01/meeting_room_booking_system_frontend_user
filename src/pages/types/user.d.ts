@@ -48,3 +48,20 @@ interface LoginUserVo {
   refreshToken: string;
 }
 
+
+interface RegisterUserDto {
+  username: string;
+  nickName: string;
+  password: string;
+  password2: string;
+  email: string;
+  captcha: string;
+}
+
+interface UpdatePasswordDto {
+  username: string;
+  password: string;
+  password2: string;
+  email: string;
+  captcha: string;
+}

@@ -10,13 +10,27 @@ axiosInstance.interceptors.response.use(
     return response.data;
   },
   async (error: AxiosError<ApiResponse>) => {
-    await message.error(error.response?.data.data)
-    // return Promise.reject(error);
+    message.error(error.response?.data.data)
+    return Promise.reject(error);
   }
 );
 
-
 export async function login(loginUser: LoginUserDto) {
   return axiosInstance.post<LoginUserVo>('/user/login', loginUser)
+    .then(res=>res.data)
+}
+
+export async function captcha(address: string ) {
+  return axiosInstance.get<string>(`/captcha?address=${address}`)
+    .then(res=>res.data)
+}
+
+export async function register(registerUser: RegisterUserDto) {
+  return axiosInstance.post<string>('/user/register', registerUser)
+    .then(res=>res.data)
+}
+
+export async function updatePassword(updatePasswordDto: UpdatePasswordDto) {
+  return axiosInstance.post<string>('/user/update_password', updatePasswordDto)
     .then(res=>res.data)
 }

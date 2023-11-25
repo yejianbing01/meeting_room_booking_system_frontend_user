@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import UpdatePassword from './pages/UpdatePassword';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import UpdatePassword from './pages/UpdatePassword/UpdatePassword';
 
 const routes: RouteObject[] = [
   {
