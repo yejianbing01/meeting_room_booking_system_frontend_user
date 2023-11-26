@@ -20,7 +20,6 @@ export default function Login() {
       message.success('登录成功');
       localStorage.setItem('access_token', res.accessToken);
       localStorage.setItem('refresh_token', res.refreshToken);
-      localStorage.setItem('user_info', JSON.stringify(res.userInfo));
     } catch (error) { }
   }
 

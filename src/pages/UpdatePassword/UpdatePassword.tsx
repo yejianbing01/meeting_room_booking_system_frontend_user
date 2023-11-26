@@ -65,7 +65,7 @@ export default function UpdatePassword() {
           </Form.Item>
           <Form.Item wrapperCol={{ span: 18, offset: 6 }}>
             <Button className='update-password-card-submit' type="primary" htmlType="submit">
-              修改密码
+              重置密码
             </Button>
           </Form.Item>
         </Form>

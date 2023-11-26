@@ -6,12 +6,24 @@ import ErrorPage from './pages/ErrorPage';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import UpdatePassword from './pages/UpdatePassword/UpdatePassword';
+import IndexLayout from './layouts/IndexLayout';
+import UpdateInfo from './pages/UpdateInfo/UpdateInfo';
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <div>index</div>,
-    errorElement: <ErrorPage />
+    element: <IndexLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <div>aaa</div>
+      },
+      {
+        path: 'update_info',
+        element: <UpdateInfo />
+      }
+    ]
   },
   {
     path: 'login',

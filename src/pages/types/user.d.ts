@@ -65,3 +65,28 @@ interface UpdatePasswordDto {
   email: string;
   captcha: string;
 }
+
+interface UserDetailVo {
+  id: number;
+
+  username: string;
+
+  nickName: string;
+
+  email: string;
+
+  headPic: string;
+
+  phoneNumber: string;
+
+  isFrozen: boolean;
+
+  createTime: Date;
+}
+
+interface UpdateUserDto {
+  nickName: string;
+  email: string;
+  headPic: string;
+  captcha: string;
+}

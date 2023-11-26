@@ -1,0 +1,26 @@
+.update-info {
+  display: flex;
+  justify-content: center;
+  padding-top: 80px;
+
+  &-form {
+    width: 40%;
+  }
+
+  .captcha-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &-submit {
+    width: 100%;
+  }
+
+  .avatar-item .ant-form-item-label {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+
+}

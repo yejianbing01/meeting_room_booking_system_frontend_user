@@ -1,0 +1,22 @@
+.index-layout {
+    height: 100vh;
+
+    &-header {
+        background-color: #fff;
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .right-area {
+            svg {
+                font-size: 26px;
+            }
+        }
+    }
+
+    &-content {
+        background-color: #fff;
+        border-left: 1px solid #ccc;
+    }
+}
