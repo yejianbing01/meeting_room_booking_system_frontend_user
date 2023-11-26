@@ -1,4 +1,4 @@
-import { Button, Form, Input, Table, Image } from 'antd'
+import { Button, Form, Input, Table, Image, message } from 'antd'
 import Column from 'antd/es/table/Column'
 import './style.scss';
 import { useCallback, useEffect, useState } from 'react';
@@ -43,6 +43,7 @@ export default function Users() {
     const onDisableUser = async (userId: number) => {
         try {
             await disableUser(userId)
+            message.success('停用成功')
             setRandom({});
         } catch (error) {
 
