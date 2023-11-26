@@ -105,3 +105,13 @@ export async function uploadImg(file: any) {
   return axiosInstance.post<string>('/user/upload', { file }, {headers: { "Content-Type": "application/form-data"}})
     .then(res => res.data)
 }
+
+export async function findUserList(userListSearchParam: UserListSearchParam) {
+  return axiosInstance.get<UserListResponse>('/user/list', { params: userListSearchParam })
+    .then(res => res.data)
+}
+
+export async function disableUser(userId: number) {
+  return axiosInstance.get<string>('/user/freeze', { params: { userId } })
+    .then(res => res.data)
+}

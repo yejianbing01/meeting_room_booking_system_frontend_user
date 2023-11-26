@@ -90,3 +90,22 @@ interface UpdateUserDto {
   headPic: string;
   captcha: string;
 }
+
+interface Pagination {
+  pageNo: number;
+  pageSize: number;
+}
+
+interface UserListSearchParam extends Pagination {
+  username?: string
+  nickName?: string
+  email?: string
+}
+
+interface ListResponse {
+  totalCount: number;
+}
+
+interface UserListResponse extends ListResponse {
+  users: UserDetailVo[]
+}

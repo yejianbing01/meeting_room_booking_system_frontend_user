@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -8,23 +8,79 @@ import Register from './pages/Register/Register';
 import UpdatePassword from './pages/UpdatePassword/UpdatePassword';
 import IndexLayout from './layouts/IndexLayout';
 import UpdateInfo from './pages/UpdateInfo/UpdateInfo';
+import Users from './pages/Users/Users';
 
-const routes: RouteObject[] = [
-  {
-    path: '/',
-    element: <IndexLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <div>aaa</div>
-      },
-      {
-        path: 'update_info',
-        element: <UpdateInfo />
+declare module 'react-router-dom' {
+  interface IndexRouteObject {
+    meta?: {
+      menu?: boolean
+      icon?: ReactNode
+      title?: string
+    }
+  }
+  interface NonIndexRouteObject {
+    meta?: {
+      menu?: boolean
+      icon?: ReactNode
+      title?: string
+    }
+  }
+}
+
+export const indexRoute: RouteObject = {
+  path: '/',
+  element: <IndexLayout />,
+  errorElement: <ErrorPage />,
+  children: [
+    {
+      index: true,
+      element: <div>aaa</div>
+    },
+    {
+      path: 'update_info',
+      element: <UpdateInfo />
+    },
+    {
+      path: 'rooms',
+      element: <div>会议室管理</div>,
+      meta: {
+        menu: true,
+        icon: '',
+        title: '会议室管理',
       }
-    ]
-  },
+    },
+    {
+      path: 'orders',
+      element: <div>预定管理</div>,
+      meta: {
+        menu: true,
+        icon: '',
+        title: '预定管理',
+      }
+    },
+    {
+      path: 'users',
+      element: <Users />,
+      meta: {
+        menu: true,
+        icon: '',
+        title: '用户管理',
+      }
+    },
+    {
+      path: 'static',
+      element: <div>统计</div>,
+      meta: {
+        menu: true,
+        icon: '',
+        title: '统计',
+      }
+    },
+  ]
+};
+
+export const routes: RouteObject[] = [
+  indexRoute,
   {
     path: 'login',
     element: <Login />

@@ -1,12 +1,12 @@
-import { UserOutlined } from '@ant-design/icons'
-import { Avatar, Layout } from 'antd'
+import { Avatar, Layout, Menu } from 'antd'
 import { Header, Content } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 import './indexLayout.scss';
-import { Link, Outlet } from 'react-router-dom';
-import form from 'antd/es/form';
+import { Link, Outlet, RouteObject } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getCurrentUserInfo } from '../lib/interface';
+import { indexRoute } from '..';
+import { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems';
 
 export default function IndexLayout() {
     const [avatar, setAvatar] = useState('');
@@ -26,11 +26,33 @@ export default function IndexLayout() {
                 </div>
             </Header>
             <Layout>
-                <Sider theme='light'>left sidebar</Sider>
+                <Sider theme='light'>
+                    <SideMenu />
+                </Sider>
                 <Content className='index-layout-content'>
                     <Outlet />
                 </Content>
             </Layout>
         </Layout>
     )
+}
+
+const SideMenu = () => {
+    const getMenuItems = (routes: RouteObject[]): ItemType<MenuItemType>[] => {
+        return routes.filter(item => item.meta?.menu)
+            ?.map(data => ({
+                key: data.path as string,
+                icon: data.meta?.icon,
+                label: <Link to={data.path || '/'}>{data.meta?.title}</Link>,
+                children: data.children ? getMenuItems(data.children) : undefined
+            }))
+    }
+
+    return <Menu
+        defaultSelectedKeys={['1']}
+        // defaultOpenKeys={['sub1']}
+        mode="inline"
+        // inlineCollapsed={collapsed}
+        items={getMenuItems(indexRoute.children!)}
+    />
 }
