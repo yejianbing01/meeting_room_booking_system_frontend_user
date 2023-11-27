@@ -1,34 +1,35 @@
 import { Button, Form, Input, message } from 'antd'
-import './login.scss';
-import { useNavigate } from 'react-router-dom';
-import { login } from '../../lib/interface';
+import './login.scss'
+import { useNavigate } from 'react-router-dom'
+import { login } from '../../lib/interface'
 
-type FieldType = {
-  username?: string;
-  password?: string;
-};
+interface FieldType {
+  username?: string
+  password?: string
+}
 
 export default function Login() {
-  const nav = useNavigate();
+  const nav = useNavigate()
 
-  const onRegister = () => nav('/register');
-  const onUpdatePassword = () => nav('/update_password');
+  const onRegister = () => nav('/register')
+  const onUpdatePassword = () => nav('/update_password')
   const onFinish = async (loginUser: LoginUserDto) => {
     try {
-      const res = await login(loginUser);
-      nav('/', { replace: true });
-      message.success('登录成功');
-      localStorage.setItem('access_token', res.accessToken);
-      localStorage.setItem('refresh_token', res.refreshToken);
-    } catch (error) { }
+      const res = await login(loginUser)
+      nav('/', { replace: true })
+      message.success('登录成功')
+      localStorage.setItem('access_token', res.accessToken)
+      localStorage.setItem('refresh_token', res.refreshToken)
+    }
+    catch (error) { }
   }
 
   return (
-    <div className='login-card-container'>
+    <div className="login-card-container">
       <div className="login-card">
-        <h1 className='login-card-title'>会议室预定系统</h1>
+        <h1 className="login-card-title">会议室预定系统</h1>
         <Form
-          className='login-card-form'
+          className="login-card-form"
           labelAlign="right"
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 20 }}
@@ -53,7 +54,7 @@ export default function Login() {
             <Input.Password />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 4, span: 20 }} >
+          <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
             <div className="login-card-actions">
               <Button type="link" onClick={onRegister}>创建账号</Button>
               <Button type="link" onClick={onUpdatePassword}>忘记密码</Button>
@@ -61,7 +62,7 @@ export default function Login() {
           </Form.Item>
 
           <Form.Item wrapperCol={{ span: 20, offset: 4 }}>
-            <Button className='login-card-submit' type="primary" htmlType="submit">
+            <Button className="login-card-submit" type="primary" htmlType="submit">
               登录
             </Button>
           </Form.Item>

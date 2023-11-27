@@ -1,14 +1,16 @@
-import React, { ReactNode } from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import ErrorPage from './pages/ErrorPage';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import UpdatePassword from './pages/UpdatePassword/UpdatePassword';
-import IndexLayout from './layouts/IndexLayout';
-import UpdateInfo from './pages/UpdateInfo/UpdateInfo';
-import Users from './pages/Users/Users';
+import type { ReactNode } from 'react'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import type { RouteObject } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import ErrorPage from './pages/ErrorPage'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
+import UpdatePassword from './pages/UpdatePassword/UpdatePassword'
+import IndexLayout from './layouts/IndexLayout'
+import UpdateInfo from './pages/UpdateInfo/UpdateInfo'
+import Users from './pages/Users/Users'
 
 declare module 'react-router-dom' {
   interface IndexRouteObject {
@@ -34,11 +36,11 @@ export const indexRoute: RouteObject = {
   children: [
     {
       index: true,
-      element: <div>aaa</div>
+      element: <div>aaa</div>,
     },
     {
       path: 'update_info',
-      element: <UpdateInfo />
+      element: <UpdateInfo />,
     },
     {
       path: 'rooms',
@@ -47,7 +49,7 @@ export const indexRoute: RouteObject = {
         menu: true,
         icon: '',
         title: '会议室管理',
-      }
+      },
     },
     {
       path: 'orders',
@@ -56,7 +58,7 @@ export const indexRoute: RouteObject = {
         menu: true,
         icon: '',
         title: '预定管理',
-      }
+      },
     },
     {
       path: 'users',
@@ -65,7 +67,7 @@ export const indexRoute: RouteObject = {
         menu: true,
         icon: '',
         title: '用户管理',
-      }
+      },
     },
     {
       path: 'static',
@@ -74,33 +76,32 @@ export const indexRoute: RouteObject = {
         menu: true,
         icon: '',
         title: '统计',
-      }
+      },
     },
-  ]
-};
+  ],
+}
 
 export const routes: RouteObject[] = [
   indexRoute,
   {
     path: 'login',
-    element: <Login />
+    element: <Login />,
   },
   {
     path: 'register',
-    element: <Register />
+    element: <Register />,
   },
   {
     path: 'update_password',
-    element: <UpdatePassword />
-  }
+    element: <UpdatePassword />,
+  },
 ]
 
 const router = createBrowserRouter(routes)
 
-
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
-);
+  </React.StrictMode>,
+)

@@ -1,15 +1,15 @@
+import { useEffect } from 'react'
 import { Button, Form, Input, message } from 'antd'
-import { useNavigate } from 'react-router-dom';
-import { captcha, getCurrentUserInfo, updateCurrentUserInfo } from '../../lib/interface';
-import CaptchaButton from '../../components/CaptchaButton';
-import { useForm } from 'antd/es/form/Form';
-import './style.scss';
-import { useEffect } from 'react';
-import ImgUpload from '../../components/ImgUpload';
-
+import { useNavigate } from 'react-router-dom'
+import { useForm } from 'antd/es/form/Form'
+import { captcha, getCurrentUserInfo, updateCurrentUserInfo } from '../../lib/interface'
+import CaptchaButton from '../../components/CaptchaButton'
+import './style.scss'
+import ImgUpload from '../../components/ImgUpload'
 
 export default function Register() {
-  const nav = useNavigate();
+  const nav = useNavigate()
+  const [form] = useForm()
 
   const onLogin = () => nav('/login', { replace: true })
 
@@ -21,33 +21,29 @@ export default function Register() {
 
   const onFinish = async (updateUserDto: UpdateUserDto) => {
     try {
-      await updateCurrentUserInfo(updateUserDto);
-      message.success('修改成功');
-    } catch (error) { }
+      await updateCurrentUserInfo(updateUserDto)
+      message.success('修改成功')
+    }
+    catch (error) { }
   }
 
   useEffect(() => {
     async function initData() {
-      try {
-        const userInfo = await getCurrentUserInfo();
-        console.log(userInfo);
-        form.setFieldsValue(userInfo);
-      } catch (error) { }
+      const userInfo = await getCurrentUserInfo()
+      form.setFieldsValue(userInfo)
     }
-    initData();
+    initData()
   }, [])
 
   const onUploadSuccess = (fileName: string) => {
     form.setFieldsValue({ headPic: fileName })
   }
 
-  const [form] = useForm();
-
   return (
-    <div className='update-info'>
+    <div className="update-info">
       <Form
         form={form}
-        className='update-info-form'
+        className="update-info-form"
         labelAlign="right"
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}
@@ -58,13 +54,13 @@ export default function Register() {
         <Form.Item
           label="头像"
           name="headPic"
-          className='avatar-item'
+          className="avatar-item"
           rules={[{ required: true, message: '用户名不能为空' }]}
         >
           <ImgUpload onSuccess={onUploadSuccess} />
         </Form.Item>
 
-        <Form.Item label="昵称" name="nickName" rules={[{ required: true, message: '昵称不能为空' }]} >
+        <Form.Item label="昵称" name="nickName" rules={[{ required: true, message: '昵称不能为空' }]}>
           <Input />
         </Form.Item>
         <Form.Item
@@ -72,24 +68,24 @@ export default function Register() {
           name="email"
           rules={[
             { required: true, message: '请输入邮箱!' },
-            { type: "email", message: '请输入合法邮箱地址!' }
+            { type: 'email', message: '请输入合法邮箱地址!' },
           ]}
         >
           <Input disabled />
         </Form.Item>
-        <Form.Item label="验证码" name="captcha" rules={[{ required: true, message: '请输入验证码!' }]} >
-          <div className='captcha-wrapper'>
+        <Form.Item label="验证码" name="captcha" rules={[{ required: true, message: '请输入验证码!' }]}>
+          <div className="captcha-wrapper">
             <Input />
             <CaptchaButton onClick={onCaptcha} />
           </div>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 15, span: 9 }} >
+        <Form.Item wrapperCol={{ offset: 15, span: 9 }}>
           <Button type="link" onClick={onLogin}>已有账号？去登录</Button>
         </Form.Item>
 
         <Form.Item wrapperCol={{ span: 18, offset: 6 }}>
-          <Button className='login-card-submit' type="primary" htmlType="submit">
+          <Button className="login-card-submit" type="primary" htmlType="submit">
             修改
           </Button>
         </Form.Item>

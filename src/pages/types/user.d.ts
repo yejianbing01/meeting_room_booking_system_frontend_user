@@ -15,85 +15,83 @@ interface Permission {
   description: string
 }
 
-
 interface UserInfo {
-  id: number;
+  id: number
 
-  username: string;
+  username: string
 
-  nickName: string;
+  nickName: string
 
-  email: string;
+  email: string
 
-  headPic: string;
+  headPic: string
 
-  phoneNumber: string;
+  phoneNumber: string
 
-  isFrozen: boolean;
+  isFrozen: boolean
 
-  isAdmin: boolean;
+  isAdmin: boolean
 
-  createTime: number;
+  createTime: number
 
-  roles: string[];
+  roles: string[]
 
-  permissions: Permission[];
+  permissions: Permission[]
 }
 
 interface LoginUserVo {
-  userInfo: UserInfo;
+  userInfo: UserInfo
 
-  accessToken: string;
+  accessToken: string
 
-  refreshToken: string;
+  refreshToken: string
 }
 
-
 interface RegisterUserDto {
-  username: string;
-  nickName: string;
-  password: string;
-  password2: string;
-  email: string;
-  captcha: string;
+  username: string
+  nickName: string
+  password: string
+  password2: string
+  email: string
+  captcha: string
 }
 
 interface UpdatePasswordDto {
-  username: string;
-  password: string;
-  password2: string;
-  email: string;
-  captcha: string;
+  username: string
+  password: string
+  password2: string
+  email: string
+  captcha: string
 }
 
 interface UserDetailVo {
-  id: number;
+  id: number
 
-  username: string;
+  username: string
 
-  nickName: string;
+  nickName: string
 
-  email: string;
+  email: string
 
-  headPic: string;
+  headPic: string
 
-  phoneNumber: string;
+  phoneNumber: string
 
-  isFrozen: boolean;
+  isFrozen: boolean
 
-  createTime: Date;
+  createTime: Date
 }
 
 interface UpdateUserDto {
-  nickName: string;
-  email: string;
-  headPic: string;
-  captcha: string;
+  nickName: string
+  email: string
+  headPic: string
+  captcha: string
 }
 
 interface Pagination {
-  pageNo: number;
-  pageSize: number;
+  pageNo: number
+  pageSize: number
 }
 
 interface UserListSearchParam extends Pagination {
@@ -103,7 +101,7 @@ interface UserListSearchParam extends Pagination {
 }
 
 interface ListResponse {
-  totalCount: number;
+  totalCount: number
 }
 
 interface UserListResponse extends ListResponse {

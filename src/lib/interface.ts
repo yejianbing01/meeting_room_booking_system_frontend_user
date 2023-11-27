@@ -1,74 +1,76 @@
-import { message } from "antd";
-import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
+import { message } from 'antd'
+import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
+import axios from 'axios'
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3001',
-  timeout: 3000
-});
+  timeout: 3000,
+})
 
 axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = localStorage.getItem('access_token')
 
   if (accessToken) {
-    config.headers.authorization = 'Bearer ' + accessToken;
+    config.headers.authorization = `Bearer ${accessToken}`
   }
   return config
-});
+})
 
 interface PendingTask {
   config: AxiosRequestConfig
   resolve: Function
 }
-let refreshing = false;
-const queue: PendingTask[] = [];
+let refreshing = false
+const queue: PendingTask[] = []
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    return response.data;
+    return response.data
   },
   async (error) => {
     if (!error.response) {
-      return Promise.reject(error);
+      return Promise.reject(error)
     }
 
-    let { data, config } = error.response;
+    const { data, config } = error.response
 
     if (refreshing) {
       return new Promise((resolve) => {
-        queue.push({ config, resolve });
-      });
+        queue.push({ config, resolve })
+      })
     }
 
     if (data.code === 401 && !config.url.includes('/user/refresh')) {
-      refreshing = true;
+      refreshing = true
       try {
-        await refreshToken();
-        refreshing = false;
+        await refreshToken()
+        refreshing = false
         queue.forEach(({ config, resolve }) => {
           resolve(axiosInstance(config))
         })
-        return axiosInstance(config);
-      } catch (error: any) {
-        window.location.href = '/login';
+        return axiosInstance(config)
+      }
+      catch (error: any) {
+        window.location.href = '/login'
         message.error(error.response.data)
       }
-    } else {
-      console.log(error);
-      message.error(Array.isArray(data.data) ? data.data[0] : data.data);
-      return Promise.reject(error);
     }
-  }
-);
+    else {
+      message.error(Array.isArray(data.data) ? data.data[0] : data.data)
+      return Promise.reject(error)
+    }
+  },
+)
 
 async function refreshToken() {
   const res = await axiosInstance.get('/user/refresh', {
     params: {
-      refresh_token: localStorage.getItem('refresh_token')
-    }
-  });
-  localStorage.setItem('access_token', res.data.access_token || '');
-  localStorage.setItem('refresh_token', res.data.refresh_token || '');
-  return res;
+      refresh_token: localStorage.getItem('refresh_token'),
+    },
+  })
+  localStorage.setItem('access_token', res.data.access_token || '')
+  localStorage.setItem('refresh_token', res.data.refresh_token || '')
+  return res
 }
 
 export async function login(loginUser: LoginUserDto) {
@@ -102,7 +104,7 @@ export async function updateCurrentUserInfo(updateUserDto: UpdateUserDto) {
 }
 
 export async function uploadImg(file: any) {
-  return axiosInstance.post<string>('/user/upload', { file }, {headers: { "Content-Type": "application/form-data"}})
+  return axiosInstance.post<string>('/user/upload', { file }, { headers: { 'Content-Type': 'application/form-data' } })
     .then(res => res.data)
 }
 
