@@ -1,4 +1,5 @@
-import { Avatar, Layout, Menu } from 'antd'
+import type { MenuProps } from 'antd'
+import { Avatar, Button, Dropdown, Layout, Menu } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 import './indexLayout.scss'
@@ -8,6 +9,8 @@ import { useEffect, useState } from 'react'
 import type { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems'
 import { getCurrentUserInfo } from '../lib/interface'
 import { indexRoute } from '..'
+import MyImage from '../components/MyImage'
+import AvatarMenu from './components/AvatarMenu'
 
 export default function IndexLayout() {
   const [avatar, setAvatar] = useState('')
@@ -21,9 +24,7 @@ export default function IndexLayout() {
       <Header className="index-layout-header">
         <h1>会议室预定系统</h1>
         <div className="right-area">
-          <Link to="/update_info">
-            <Avatar src={<img src={`http://localhost:3001/${avatar}`} alt="avatar" />} />
-          </Link>
+          <AvatarMenu avatar={avatar} />
         </div>
       </Header>
       <Layout>

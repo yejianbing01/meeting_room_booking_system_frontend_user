@@ -9,7 +9,6 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import UpdatePassword from './pages/UpdatePassword/UpdatePassword'
 import IndexLayout from './layouts/IndexLayout'
-import UpdateInfo from './pages/UpdateInfo/UpdateInfo'
 import Users from './pages/Users/Users'
 
 declare module 'react-router-dom' {
@@ -37,10 +36,6 @@ export const indexRoute: RouteObject = {
     {
       index: true,
       element: <div>aaa</div>,
-    },
-    {
-      path: 'update_info',
-      element: <UpdateInfo />,
     },
     {
       path: 'rooms',

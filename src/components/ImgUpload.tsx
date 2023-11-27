@@ -2,6 +2,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { Upload, message } from 'antd'
 import type { UploadChangeParam, UploadFile } from 'antd/es/upload'
 import React, { useEffect, useState } from 'react'
+import MyImage from './MyImage'
 
 interface Props {
   value?: string
@@ -50,15 +51,11 @@ export default function ImgUpload(props: Props) {
       style={{ overflow: 'hidden' }}
       onChange={onChange}
     >
-      {imageUrl
-        ? (
-          <img
-            src={`http://localhost:3001/${imageUrl}`}
-            alt="avatar"
-            style={{ width: '100%', height: '100%', borderRadius: '50%' }}
-          />
-          )
-        : uploadButton}
+      {
+        imageUrl
+          ? <MyImage src={imageUrl} alt="avatar" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+          : uploadButton
+      }
     </Upload>
   )
 }
