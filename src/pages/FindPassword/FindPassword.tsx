@@ -5,7 +5,7 @@ import { useForm } from 'antd/es/form/Form'
 import { captcha, updatePassword } from '../../lib/interface'
 import CaptchaButton from '../../components/CaptchaButton'
 
-export default function UpdatePassword() {
+export default function FindPassword() {
   const nav = useNavigate()
   const [form] = useForm()
 

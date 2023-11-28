@@ -2,6 +2,7 @@ import { Button, Form, Input, message } from 'antd'
 import './login.scss'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../lib/interface'
+import { useStore } from '../../store'
 
 interface FieldType {
   username?: string
@@ -10,16 +11,25 @@ interface FieldType {
 
 export default function Login() {
   const nav = useNavigate()
+  const { dispatch } = useStore()
 
   const onRegister = () => nav('/register')
-  const onUpdatePassword = () => nav('/update_password')
+  const onUpdatePassword = () => nav('/find_password')
   const onFinish = async (loginUser: LoginUserDto) => {
     try {
       const res = await login(loginUser)
       nav('/', { replace: true })
       message.success('登录成功')
-      localStorage.setItem('access_token', res.accessToken)
-      localStorage.setItem('refresh_token', res.refreshToken)
+      dispatch({
+        type: 'login',
+        payload: {
+          loginData: {
+            userInfo: res.userInfo,
+            accessToken: res.accessToken,
+            refreshToken: res.refreshToken,
+          },
+        },
+      })
     }
     catch (error) { }
   }

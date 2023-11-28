@@ -5,26 +5,20 @@ import Sider from 'antd/es/layout/Sider'
 import './indexLayout.scss'
 import type { RouteObject } from 'react-router-dom'
 import { Link, Outlet } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import type { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems'
-import { getCurrentUserInfo } from '../lib/interface'
 import { indexRoute } from '..'
-import MyImage from '../components/MyImage'
+import { useStore } from '../store'
 import AvatarMenu from './components/AvatarMenu'
 
 export default function IndexLayout() {
-  const [avatar, setAvatar] = useState('')
+  const { store } = useStore()
 
-  useEffect(() => {
-    getCurrentUserInfo()
-      .then(res => setAvatar(res.headPic))
-  }, [])
   return (
     <Layout className="index-layout">
       <Header className="index-layout-header">
         <h1>会议室预定系统</h1>
         <div className="right-area">
-          <AvatarMenu avatar={avatar} />
+          <AvatarMenu avatar={store.loginData.userInfo?.headPic || ''} />
         </div>
       </Header>
       <Layout>
@@ -53,9 +47,7 @@ function SideMenu() {
   return (
     <Menu
       defaultSelectedKeys={['1']}
-        // defaultOpenKeys={['sub1']}
       mode="inline"
-        // inlineCollapsed={collapsed}
       items={getMenuItems(indexRoute.children!)}
     />
   )

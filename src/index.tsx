@@ -7,9 +7,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
-import UpdatePassword from './pages/UpdatePassword/UpdatePassword'
+import FindPassword from './pages/FindPassword/FindPassword'
 import IndexLayout from './layouts/IndexLayout'
 import Users from './pages/Users/Users'
+import { AppContextProvider } from './store'
 
 declare module 'react-router-dom' {
   interface IndexRouteObject {
@@ -87,8 +88,8 @@ export const routes: RouteObject[] = [
     element: <Register />,
   },
   {
-    path: 'update_password',
-    element: <UpdatePassword />,
+    path: 'find_password',
+    element: <FindPassword />,
   },
 ]
 
@@ -97,6 +98,8 @@ const router = createBrowserRouter(routes)
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AppContextProvider>
+      <RouterProvider router={router} />
+    </AppContextProvider>
   </React.StrictMode>,
 )
