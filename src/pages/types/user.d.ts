@@ -107,3 +107,45 @@ interface ListResponse {
 interface UserListResponse extends ListResponse {
   users: UserDetailVo[]
 }
+
+interface RoomVO {
+  id: number
+
+  name: string
+
+  capacity: number
+
+  location: string
+
+  equipment: string
+
+  description: string
+
+  isBooked: boolean
+
+  createTime: Date
+
+  updateTime: Date
+}
+
+interface RoomsListResponse extends ListResponse {
+  rooms: RoomVO[]
+}
+
+interface CreateMeetingRoomDto {
+  name: string
+  capacity: number
+  location: string
+  equipment: string
+  description: string
+}
+
+interface UpdateMeetingRoomDto extends Partial<CreateMeetingRoomDto> {
+  id: number
+}
+
+interface RoomsSearchParam extends Pagination {
+  name?: string
+  capacity?: number
+  equipment?: string
+}

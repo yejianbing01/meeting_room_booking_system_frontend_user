@@ -3,9 +3,9 @@ import { Button, Form, Input, Modal, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import CaptchaButton from '../../components/CaptchaButton'
 import ImgUpload from '../../components/ImgUpload'
-import { captcha, updateCurrentUserInfo } from '../../lib/interface'
 import './infoChangeButton.scss'
 import { useStore } from '../../store'
+import { captcha, updateCurrentUserInfo } from '../../api/user'
 
 export default function InfoChangeButton() {
   const [form] = useForm()

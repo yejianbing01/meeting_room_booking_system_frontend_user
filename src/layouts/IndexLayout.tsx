@@ -4,8 +4,9 @@ import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 import './indexLayout.scss'
 import type { RouteObject } from 'react-router-dom'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import type { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems'
+import { useMemo } from 'react'
 import { indexRoute } from '..'
 import { useStore } from '../store'
 import AvatarMenu from './components/AvatarMenu'
@@ -34,6 +35,12 @@ export default function IndexLayout() {
 }
 
 function SideMenu() {
+  const location = useLocation()
+
+  const defaultSelectedKey = useMemo(() => {
+    return location.pathname.split('/')[1] || 'rooms'
+  }, [location.pathname])
+
   const getMenuItems = (routes: RouteObject[]): ItemType<MenuItemType>[] => {
     return routes.filter(item => item.meta?.menu)
       ?.map(data => ({
@@ -46,7 +53,7 @@ function SideMenu() {
 
   return (
     <Menu
-      defaultSelectedKeys={['1']}
+      defaultSelectedKeys={[defaultSelectedKey]}
       mode="inline"
       items={getMenuItems(indexRoute.children!)}
     />

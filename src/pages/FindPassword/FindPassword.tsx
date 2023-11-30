@@ -2,8 +2,8 @@ import { Button, Form, Input, message } from 'antd'
 import './style.scss'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'antd/es/form/Form'
-import { captcha, updatePassword } from '../../lib/interface'
 import CaptchaButton from '../../components/CaptchaButton'
+import { captcha, updatePassword } from '../../api/user'
 
 export default function FindPassword() {
   const nav = useNavigate()

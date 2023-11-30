@@ -2,8 +2,8 @@ import { Button, Form, Input, message } from 'antd'
 import './register.scss'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'antd/es/form/Form'
-import { captcha, register } from '../../lib/interface'
 import CaptchaButton from '../../components/CaptchaButton'
+import { captcha, register } from '../../api/user'
 
 export default function Register() {
   const nav = useNavigate()
@@ -16,7 +16,6 @@ export default function Register() {
       .then(() => {
         captcha(form.getFieldValue('email'))
           .then(() => message.success('发送成功'))
-          .catch(() => { })
       })
   }
 

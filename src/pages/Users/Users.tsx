@@ -3,7 +3,7 @@ import Column from 'antd/es/table/Column'
 import './style.scss'
 import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'antd/es/form/Form'
-import { disableUser, findUserList } from '../../lib/interface'
+import { disableUser, findUserList } from '../../api/user'
 
 export default function Users() {
   const [form] = useForm()
@@ -14,12 +14,9 @@ export default function Users() {
   const [random, setRandom] = useState({})
 
   const getUsers = useCallback(async (pageNo: number, pageSize: number) => {
-    try {
-      const { users, totalCount } = await findUserList({ pageNo, pageSize, ...form.getFieldsValue() })
-      setUserList(users)
-      setTotal(totalCount)
-    }
-    catch (error) { }
+    const { users, totalCount } = await findUserList({ pageNo, pageSize, ...form.getFieldsValue() })
+    setUserList(users)
+    setTotal(totalCount)
   }, [])
 
   const onSearch = async () => {

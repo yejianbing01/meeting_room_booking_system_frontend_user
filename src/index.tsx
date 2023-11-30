@@ -3,13 +3,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import type { RouteObject } from 'react-router-dom'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter, redirect, redirectDocument } from 'react-router-dom'
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import FindPassword from './pages/FindPassword/FindPassword'
 import IndexLayout from './layouts/IndexLayout'
 import Users from './pages/Users/Users'
+import Rooms from './pages/Rooms/Rooms'
 import { AppContextProvider } from './store'
 
 declare module 'react-router-dom' {
@@ -36,11 +37,11 @@ export const indexRoute: RouteObject = {
   children: [
     {
       index: true,
-      element: <div>aaa</div>,
+      element: <Navigate to="rooms" />,
     },
     {
       path: 'rooms',
-      element: <div>会议室管理</div>,
+      element: <Rooms />,
       meta: {
         menu: true,
         icon: '',

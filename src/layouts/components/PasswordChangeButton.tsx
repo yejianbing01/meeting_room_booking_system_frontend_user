@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Form, Input, Modal, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import CaptchaButton from '../../components/CaptchaButton'
-import { captcha, getCurrentUserInfo, updatePassword } from '../../lib/interface'
 import './infoChangeButton.scss'
 import { useStore } from '../../store'
+import { captcha, updatePassword } from '../../api/user'
 
 export default function InfoChangeButton() {
   const [form] = useForm()
