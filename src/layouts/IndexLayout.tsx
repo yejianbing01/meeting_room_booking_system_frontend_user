@@ -4,7 +4,7 @@ import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 import './indexLayout.scss'
 import type { RouteObject } from 'react-router-dom'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Navigate, Outlet, useLocation } from 'react-router-dom'
 import type { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems'
 import { useMemo } from 'react'
 import { indexRoute } from '..'
@@ -13,6 +13,10 @@ import AvatarMenu from './components/AvatarMenu'
 
 export default function IndexLayout() {
   const { store } = useStore()
+
+  if (!store.loginData.accessToken) {
+    return <Navigate to="/login" replace />
+  }
 
   return (
     <Layout className="index-layout">

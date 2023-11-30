@@ -16,12 +16,12 @@ ajax.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   return config
 })
 
-interface PendingTask {
-  config: AxiosRequestConfig
-  resolve: Function
-}
-let refreshing = false
-const queue: PendingTask[] = []
+// interface PendingTask {
+//   config: AxiosRequestConfig
+//   resolve: Function
+// }
+// const refreshing = false
+// const queue: PendingTask[] = []
 
 ajax.interceptors.response.use(
   (response) => {
@@ -32,43 +32,43 @@ ajax.interceptors.response.use(
       return Promise.reject(error)
     }
 
-    const { data, config } = error.response
+    const { data } = error.response
 
-    if (refreshing) {
-      return new Promise((resolve) => {
-        queue.push({ config, resolve })
-      })
-    }
+    // if (refreshing) {
+    //   return new Promise((resolve) => {
+    //     queue.push({ config, resolve })
+    //   })
+    // }
 
-    if (data.code === 401 && !config.url.includes('/user/refresh')) {
-      refreshing = true
-      try {
-        await refreshToken()
-        refreshing = false
-        queue.forEach(({ config, resolve }) => {
-          resolve(ajax(config))
-        })
-        return ajax(config)
-      }
-      catch (error: any) {
-        window.location.href = '/login'
-        message.error(error.response.data)
-      }
-    }
-    else {
-      message.error(Array.isArray(data.data) ? data.data[0] : data.data)
-      return Promise.reject(error)
-    }
+    // if (data.code === 401 && !config.url.includes('/user/refresh')) {
+    //   refreshing = true
+    //   try {
+    //     await refreshToken()
+    //     refreshing = false
+    //     queue.forEach(({ config, resolve }) => {
+    //       resolve(ajax(config))
+    //     })
+    //     return ajax(config)
+    //   }
+    //   catch (error: any) {
+    //     window.location.href = '/login'
+    //     message.error(error.response.data)
+    //   }
+    // }
+    // else {
+    message.error(Array.isArray(data.data) ? data.data[0] : data.data)
+    return Promise.reject(error)
+    // }
   },
 )
 
-async function refreshToken() {
-  const res = await ajax.get('/user/refresh', {
-    params: {
-      refresh_token: localStorage.getItem('refresh_token'),
-    },
-  })
-  localStorage.setItem('access_token', res.data.access_token || '')
-  localStorage.setItem('refresh_token', res.data.refresh_token || '')
-  return res
-}
+// async function refreshToken() {
+//   const res = await ajax.get('/user/refresh', {
+//     params: {
+//       refresh_token: localStorage.getItem('refresh_token'),
+//     },
+//   })
+//   localStorage.setItem('access_token', res.data.access_token || '')
+//   localStorage.setItem('refresh_token', res.data.refresh_token || '')
+//   return res
+// }

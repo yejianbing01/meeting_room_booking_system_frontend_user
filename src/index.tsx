@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import type { RouteObject } from 'react-router-dom'
 import { Navigate, RouterProvider, createBrowserRouter, redirect, redirectDocument } from 'react-router-dom'
+import ErrorBoundary from 'antd/es/alert/ErrorBoundary'
 import ErrorPage from './pages/ErrorPage'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
@@ -12,6 +13,7 @@ import IndexLayout from './layouts/IndexLayout'
 import Users from './pages/Users/Users'
 import Rooms from './pages/Rooms/Rooms'
 import { AppContextProvider } from './store'
+import { getCurrentUserInfo } from './api/user'
 
 declare module 'react-router-dom' {
   interface IndexRouteObject {
@@ -28,6 +30,14 @@ declare module 'react-router-dom' {
       title?: string
     }
   }
+}
+
+async function loginLoader() {
+  return getCurrentUserInfo()
+    .then(() => {
+      redirect('/login')
+    })
+    .catch(() => true)
 }
 
 export const indexRoute: RouteObject = {
@@ -83,6 +93,8 @@ export const routes: RouteObject[] = [
   {
     path: 'login',
     element: <Login />,
+    loader: loginLoader,
+    errorElement: <Navigate to="/" />,
   },
   {
     path: 'register',

@@ -31,9 +31,9 @@ export interface IActionLogout {
 
 const initState: IStore = {
   loginData: {
-    userInfo: JSON.parse(localStorage.getItem('user_info') || ''),
-    accessToken: '',
-    refreshToken: '',
+    userInfo: JSON.parse(localStorage.getItem('user_info') || '{}'),
+    accessToken: localStorage.getItem('access_token') || '',
+    refreshToken: localStorage.getItem('refresh_token') || '',
   },
 }
 const AppContext = createContext < { store: IStore, dispatch: React.Dispatch<IAction | IActionLogout> } >(null!)
