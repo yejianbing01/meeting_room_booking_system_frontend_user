@@ -129,7 +129,7 @@ interface RoomVO {
 }
 
 interface RoomsListResponse extends ListResponse {
-  rooms: RoomVO[]
+  meetingRooms: RoomVO[]
 }
 
 interface CreateMeetingRoomDto {

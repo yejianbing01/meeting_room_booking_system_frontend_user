@@ -6,11 +6,11 @@ export const roomApi = {
       .then(res => res.data)
   },
   async updateRoom(updateMeetingRoomDto: UpdateMeetingRoomDto) {
-    return ajax.post<string>('/meeting-room/update', updateMeetingRoomDto)
+    return ajax.put<string>('/meeting-room/update', updateMeetingRoomDto)
       .then(res => res.data)
   },
   async deleteRoom(id: number) {
-    return ajax.delete<string>(`/meeting-room/delete/${id}`)
+    return ajax.delete<string>(`/meeting-room/${id}`)
       .then(res => res.data)
   },
   async findRooms(roomsSearchParam: RoomsSearchParam) {

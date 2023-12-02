@@ -5,18 +5,19 @@ import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'antd/es/form/Form'
 import { PlusOutlined } from '@ant-design/icons'
 import { roomApi } from '../../api/roomApi'
+import SaveForm from './SaveForm'
 
 export default function Users() {
   const [form] = useForm()
-  const [roomList, setRoomList] = useState<RoomVO[]>()
+  const [roomList, setRoomList] = useState<RoomVO[]>([])
   const [total, setTotal] = useState(0)
   const [pageNo, setPageNo] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [random, setRandom] = useState({})
 
   const findRooms = async (pageNo: number, pageSize: number) => {
-    const { rooms, totalCount } = await roomApi.findRooms({ pageNo, pageSize, ...form.getFieldsValue() })
-    setRoomList(rooms)
+    const { meetingRooms, totalCount } = await roomApi.findRooms({ pageNo, pageSize, ...form.getFieldsValue() })
+    setRoomList(meetingRooms)
     setTotal(totalCount)
   }
 
@@ -31,14 +32,21 @@ export default function Users() {
     setPageSize(pageSize)
   }
 
+  const refresh = () => {
+    setRandom({})
+  }
+
   useEffect(() => {
     findRooms(pageNo, pageSize)
   }, [pageNo, pageSize, random])
 
-  const onDisableUser = async (roomId: number) => {
+  const onDeleteRoom = async (roomId: number) => {
     await roomApi.deleteRoom(roomId)
     message.success('删除成功')
-    setRandom({})
+    if (roomList.length === 1 && pageNo > 1) {
+      return setPageNo(pageNo - 1)
+    }
+    refresh()
   }
 
   return (
@@ -66,7 +74,9 @@ export default function Users() {
         <Form.Item>
           <div className="rooms-table-action">
             <Button type="primary" htmlType="submit"> 搜索 </Button>
-            <Button type="primary" htmlType="submit" icon={<PlusOutlined />}> 新增会议室 </Button>
+            <SaveForm onSuccess={refresh}>
+              <Button type="primary" icon={<PlusOutlined />}> 新增会议室 </Button>
+            </SaveForm>
           </div>
         </Form.Item>
       </Form>
@@ -82,10 +92,12 @@ export default function Users() {
         <Column
           title="操作"
           key="action"
-          render={(_, record: UserDetailVo) => (
+          render={(_, record: RoomVO) => (
             <>
-              <Button type="link" onClick={() => { }}>更新</Button>
-              <Button type="link" onClick={() => onDisableUser(record.id)}>删除</Button>
+              <SaveForm onSuccess={refresh} initValue={record}>
+                <Button type="link">更新</Button>
+              </SaveForm>
+              <Button type="link" onClick={() => onDeleteRoom(record.id)}>删除</Button>
             </>
           )}
         />
